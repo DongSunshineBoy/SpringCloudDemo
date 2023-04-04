@@ -1,0 +1,29 @@
+server:
+  port: ${app.port:9099}
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 8.140.167.225:32048
+        group: DEFAULT_GROUP
+    gateway:
+      routes:
+        - id: order_route
+          uri: http://${order_service_host:localhost:9091}
+          predicates:
+            - Path=/order-service/**
+          filters:
+            - StripPrefix=1
+        - id: user_route
+          uri: http://${user_service_host:localhost:9093}
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - StripPrefix=1
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+

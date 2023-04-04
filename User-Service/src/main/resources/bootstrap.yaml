@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: user-order
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 8.140.167.225:32048
+        group: DEFAULT_GROUP
+      config:
+        server-addr: 8.140.167.225:32048
+        prefix: ${spring.application.name}
+        file-extension: yaml
+  profiles:
+    active: ${app.active:dev}
+
+
+
