@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 8.140.167.225:32048
+        group: DEFAULT_GROUP
+      config:
+        server-addr: 8.140.167.225:32048
+        prefix: ${spring.application.name}
+        file-extension: yaml
+        refresh-enabled: true
+#          namespace: ${app.active:dev}
+
+  profiles:
+    active: ${app.active:pub}
+  main:
+    web-application-type: reactive
+
+logging:
+  config: classpath:logback-dev.xml

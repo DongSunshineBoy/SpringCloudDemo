@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruimind.gis.mapper.TbBusinessNameHistoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ruimind.gis.dto.TbBusinessNameHistoryDTO">
+        <id column="business_name_history_id" property="businessNameHistoryId" />
+        <result column="business_id" property="businessId" />
+        <result column="starttime" property="starttime" />
+        <result column="business_name" property="businessName" />
+        <result column="endtime" property="endtime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        business_name_history_id, business_id, starttime, business_name, endtime
+    </sql>
+
+</mapper>

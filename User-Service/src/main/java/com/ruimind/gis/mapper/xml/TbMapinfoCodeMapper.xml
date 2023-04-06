@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruimind.gis.mapper.TbMapinfoCodeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ruimind.gis.dto.TbMapinfoCodeDTO">
+        <id column="mapinfo_id" property="mapinfoId" />
+        <result column="map_name" property="mapName" />
+        <result column="map_path" property="mapPath" />
+        <result column="map_api_url" property="mapApiUrl" />
+        <result column="map_type" property="mapType" />
+        <result column="create_time" property="createTime" />
+        <result column="create_userid" property="createUserid" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        mapinfo_id, map_name, map_path, map_api_url, map_type, create_time, create_userid
+    </sql>
+
+</mapper>

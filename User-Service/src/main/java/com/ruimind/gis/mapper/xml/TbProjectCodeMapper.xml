@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruimind.gis.mapper.TbProjectCodeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ruimind.gis.dto.TbProjectCodeDTO">
+        <id column="project_id" property="projectId" />
+        <result column="business_id" property="businessId" />
+        <result column="project_name" property="projectName" />
+        <result column="project_leader_name" property="projectLeaderName" />
+        <result column="project_leader_tel" property="projectLeaderTel" />
+        <result column="project_startdate" property="projectStartdate" />
+        <result column="project_enddate" property="projectEnddate" />
+        <result column="project_create_time" property="projectCreateTime" />
+        <result column="project_create_userid" property="projectCreateUserid" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        project_id, business_id, project_name, project_leader_name, project_leader_tel, project_startdate, project_enddate, project_create_time, project_create_userid
+    </sql>
+
+</mapper>

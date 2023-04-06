@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruimind.gis.mapper.TbMenuCodeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ruimind.gis.dto.TbMenuCodeDTO">
+        <id column="menu_id" property="menuId" />
+        <result column="menu_name" property="menuName" />
+        <result column="menu_code" property="menuCode" />
+        <result column="parent_menu_id" property="parentMenuId" />
+        <result column="menu_type" property="menuType" />
+        <result column="icon_url" property="iconUrl" />
+        <result column="index" property="index" />
+        <result column="menu_address" property="menuAddress" />
+        <result column="level" property="level" />
+        <result column="menu_all_path" property="menuAllPath" />
+        <result column="menu_deleted" property="menuDeleted" />
+        <result column="create_time" property="createTime" />
+        <result column="create_userid" property="createUserid" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        menu_id, menu_name, menu_code, parent_menu_id, menu_type, icon_url, index, menu_address, level, menu_all_path, menu_deleted, create_time, create_userid
+    </sql>
+
+</mapper>

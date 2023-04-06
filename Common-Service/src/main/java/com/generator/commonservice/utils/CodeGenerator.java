@@ -11,11 +11,13 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+@Slf4j
 public class CodeGenerator {
 
     public static String scanner(String tip) {
@@ -32,7 +34,21 @@ public class CodeGenerator {
         throw new MybatisPlusException("请输入正确的" + tip + "！");
     }
 
-    public static void generator(String moduleName, String packageName) {
+    public static void generator(DatabaseEntity databaseEntity) {
+
+        if (databaseEntity == null) {
+            log.debug("数据库基本信息不能为空!");
+            return;
+        }
+
+        String moduleName = databaseEntity.getModuleName();
+        String packageName = databaseEntity.getPackageName();
+        String url = databaseEntity.getUrl();
+        String pwd = databaseEntity.getPwd();
+        String uname = databaseEntity.getUname();
+        String driverName = databaseEntity.getDriverName();
+        String authorName = databaseEntity.getAuthorName();
+
         if (StringUtils.isEmpty(moduleName) || StringUtils.isEmpty(packageName)) {
             return;
         }
@@ -46,7 +62,7 @@ public class CodeGenerator {
         gc.setOutputDir(projectPath + "/"+moduleName+"/src/main/java");//设置代码生成路径
         gc.setFileOverride(true);//是否覆盖以前文件
         gc.setOpen(false);//是否打开生成目录
-        gc.setAuthor("dongwentao");//设置项目作者名称
+        gc.setAuthor(authorName);//设置项目作者名称
         gc.setIdType(IdType.AUTO);//设置主键策略
         gc.setBaseResultMap(true);//生成基本ResultMap
         gc.setBaseColumnList(true);//生成基本ColumnList
@@ -56,10 +72,10 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://43.139.7.95:3306/order_service?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8");
-        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("123456");
+        dsc.setUrl(url);
+        dsc.setDriverName(driverName);
+        dsc.setUsername(uname);
+        dsc.setPassword(pwd);
         mpg.setDataSource(dsc);
 
         // 包配置
@@ -80,6 +96,7 @@ public class CodeGenerator {
         sc.setEntityLombokModel(true);//自动lombok
         sc.setRestControllerStyle(true);
         sc.setControllerMappingHyphenStyle(true);
+
 
         sc.setLogicDeleteFieldName("deleted");//设置逻辑删除
 

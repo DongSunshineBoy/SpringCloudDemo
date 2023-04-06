@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruimind.gis.mapper.TbRoleCodeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ruimind.gis.dto.TbRoleCodeDTO">
+        <id column="role_id" property="roleId" />
+        <result column="role_name" property="roleName" />
+        <result column="role_name_abbr" property="roleNameAbbr" />
+        <result column="role_type" property="roleType" />
+        <result column="project_id" property="projectId" />
+        <result column="role_create_time" property="roleCreateTime" />
+        <result column="role_create_userid" property="roleCreateUserid" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        role_id, role_name, role_name_abbr, role_type, project_id, role_create_time, role_create_userid
+    </sql>
+
+</mapper>
