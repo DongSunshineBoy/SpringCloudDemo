@@ -7,10 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -37,6 +34,7 @@ public class TbBusinessNameHistory implements Serializable {
     private Long businessNameHistoryId;
 
     @Comment("企业编号")
+    @Column(name = "business_id")
     private Long businessId;
 
     @Comment("开始时间")

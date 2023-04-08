@@ -1,7 +1,7 @@
 package com.ruimind.gis.mapper;
 
-import com.ruimind.gis.dto.TbAccountCodeDTO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ruimind.gis.entity.TbAccountCode;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2023-04-06
  */
 @Mapper
-public interface TbAccountCodeMapper extends BaseMapper<TbAccountCodeDTO> {
+public interface TbAccountCodeMapper extends BaseMapper<TbAccountCode> {
 
 }

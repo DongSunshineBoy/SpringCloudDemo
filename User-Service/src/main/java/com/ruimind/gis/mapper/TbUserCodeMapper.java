@@ -1,7 +1,7 @@
 package com.ruimind.gis.mapper;
 
-import com.ruimind.gis.dto.TbUserCodeDTO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ruimind.gis.entity.TbUserCode;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2023-04-06
  */
 @Mapper
-public interface TbUserCodeMapper extends BaseMapper<TbUserCodeDTO> {
+public interface TbUserCodeMapper extends BaseMapper<TbUserCode> {
 
 }

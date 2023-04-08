@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -34,16 +35,31 @@ public class TbProjectCode implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("项目编码id")
+    @Column(name = "project_id")
     private Long projectId;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "business_id")
-    private TbBusinessCode tbBusinessCode;
+    //企业信息
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "business_id", insertable = false, updatable = false,
+//            foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+//    private TbBusinessCode tbBusinessCode;
+
+    //租户信息,单向关联
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "project_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+//    private TbAccountCode tbAccountCode;
+
+    //角色信息, 单向关联
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private List<TbRoleCode> tbRoleCodes;
+
 
     /**
      * 企业编号
      */
     @Comment("企业编号")
+    @Column(name = "business_id")
     private Long businessId;
 
     /**

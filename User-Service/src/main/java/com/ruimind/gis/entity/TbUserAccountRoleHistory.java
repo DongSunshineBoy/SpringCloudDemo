@@ -7,10 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -37,13 +34,16 @@ public class TbUserAccountRoleHistory implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("租户角色id")
+    @Column(name = "user_id")
     private Long userId;
 
     /**
      * 租户编号
      */
     @Comment("租户编号")
+    @Column(name = "account_id")
     private Long accountId;
+
 
     /**
      * 开始时间
@@ -55,6 +55,7 @@ public class TbUserAccountRoleHistory implements Serializable {
      * 角色编号
      */
     @Comment("角色编号")
+    @Column(name = "role_id")
     private Long roleId;
 
     /**
@@ -67,6 +68,7 @@ public class TbUserAccountRoleHistory implements Serializable {
      * 用户角色租户编号
      */
     @Comment("用户角色租户编号")
+    @Column(name = "user_account_role_id")
     private Long userAccountRoleId;
 
 

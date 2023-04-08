@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -29,18 +30,52 @@ public class TbAccountCode implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("租户id")
+    @Column(name = "account_id")
     private Long accountId;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "business_id")
-    private TbBusinessCode tbBusinessCode;
 
+    //租户权限,单向关联
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "account_id")
+    private List<TbAccountPermissionCode> tbAccountPermissionCode;
+
+
+
+    //租户地图信息,单向关联
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "account_id")
+    private List<TbAccountMapinfoCode> tbAccountMapinfoCodes;
+
+    //用户历史角色信息,单向关联
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "account_id")
+    private List<TbUserAccountRoleHistory> tbUserAccountRoleHistories;
+
+
+    //租户用户角色, 单向关联
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "account_id")
+    private List<TbUserAccountRoleCode> tbUserAccountRoleCode;
+
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "project_id", insertable = false, updatable = false)
+    private TbProjectCode tbProjectCode;
 
     /**
      * 项目编号
      */
     @Comment("项目编号")
+    @Column(name = "project_id")
     private Long projectId;
+
+    /**
+     * 项目编号
+     */
+    @Comment("项目编号")
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
+
 
     /**
      * 企业编号

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruimind.gis.mapper.TbUserAccountRoleCodeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ruimind.gis.entity.TbUserAccountRoleCode">
+        <id column="user_account_role_id" property="userAccountRoleId" />
+        <result column="user_id" property="userId" />
+        <result column="account_id" property="accountId" />
+        <result column="role_id" property="roleId" />
+        <result column="create_time" property="createTime" />
+        <result column="create_userid" property="createUserid" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        user_account_role_id, user_id, account_id, role_id, create_time, create_userid
+    </sql>
+
+</mapper>

@@ -1,7 +1,7 @@
 package com.ruimind.gis.mapper;
 
-import com.ruimind.gis.dto.TbMapinfoCodeDTO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ruimind.gis.entity.TbMapinfoCode;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2023-04-06
  */
 @Mapper
-public interface TbMapinfoCodeMapper extends BaseMapper<TbMapinfoCodeDTO> {
+public interface TbMapinfoCodeMapper extends BaseMapper<TbMapinfoCode> {
 
 }

@@ -14,6 +14,10 @@ spring:
 #        namespace: ${app.active:dev}
   profiles:
     active: ${app.active:pub}
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
 
 logging:
   config: classpath:logback-dev.xml
+

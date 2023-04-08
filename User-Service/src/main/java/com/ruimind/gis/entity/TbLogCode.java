@@ -7,10 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -37,12 +34,14 @@ public class TbLogCode implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("日志编号")
     @TableId(value = "log_id", type = IdType.AUTO)
+    @Column(name = "log_id")
     private Long logId;
 
     /**
      * 操作ip
      */
     @Comment("操作ip")
+    @Column(name = "log_ip")
     private String logIp;
 
     /**

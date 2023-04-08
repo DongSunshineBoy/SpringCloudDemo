@@ -1,9 +1,9 @@
 package com.ruimind.gis.service.impl;
 
-import com.ruimind.gis.dto.TbUserNameHistoryDTO;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ruimind.gis.entity.TbUserNameHistory;
 import com.ruimind.gis.mapper.TbUserNameHistoryMapper;
 import com.ruimind.gis.service.TbUserNameHistoryService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2023-04-06
  */
 @Service
-public class TbUserNameHistoryServiceImpl extends ServiceImpl<TbUserNameHistoryMapper, TbUserNameHistoryDTO> implements TbUserNameHistoryService {
+public class TbUserNameHistoryServiceImpl extends ServiceImpl<TbUserNameHistoryMapper, TbUserNameHistory> implements TbUserNameHistoryService {
 
 }

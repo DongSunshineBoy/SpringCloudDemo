@@ -7,10 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -43,18 +40,21 @@ public class TbAccountPermissionCode implements Serializable {
      * 租户编号
      */
     @Comment("租户编号")
+    @Column(name = "account_id")
     private Integer accountId;
 
     /**
      * 菜单编号
      */
     @Comment("菜单编号")
+    @Column(name = "menu_id")
     private Integer menuId;
 
     /**
      * 角色编号
      */
     @Comment("角色编号")
+    @Column(name = "role_id")
     private Integer roleId;
 
     /**

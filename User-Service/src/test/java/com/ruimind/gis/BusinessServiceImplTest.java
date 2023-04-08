@@ -4,12 +4,9 @@ import com.ruimind.gis.entity.TbAccountCode;
 import com.ruimind.gis.entity.TbBusinessCode;
 import com.ruimind.gis.entity.TbProjectCode;
 import com.ruimind.gis.mapper.TbBusinessCodeMapper;
-import com.ruimind.gis.repository.TbAccountCodeRepository;
 import com.ruimind.gis.repository.TbBusinessCodeRepository;
-import com.ruimind.gis.service.TbAccountCodeService;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -21,13 +18,8 @@ import java.util.Optional;
 
 @SpringBootTest
 @Slf4j
-class UserServiceApplicationTests {
-
-    @Autowired
-    private TbAccountCodeService tbAccountCodeService;
-
-    @Autowired
-    private TbAccountCodeRepository tbAccountCodeRepository;
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+class BusinessServiceImplTest {
 
     @Autowired
     private TbBusinessCodeMapper tbBusinessCodeMapper;
@@ -36,6 +28,7 @@ class UserServiceApplicationTests {
     private TbBusinessCodeRepository tbBusinessCodeRepository;
 
     @Test
+    @Order(1)
     void testTbAccountInsert() {
 
         List<TbAccountCode> accountCodes = new ArrayList<>();
@@ -78,6 +71,7 @@ class UserServiceApplicationTests {
     }
 
     @Test
+    @Order(2)
     void testTbAccountUpdate() {
 
         List<TbAccountCode> accountCodes = new ArrayList<>();
@@ -124,6 +118,7 @@ class UserServiceApplicationTests {
 
     @Test
     @Transactional
+    @Order(3)
     void testTbAccountFind() {
         Optional<TbBusinessCode> byId = tbBusinessCodeRepository.findByBusinessId(6L);
         Assertions.assertNotNull(byId.get(), "查询数据成功！");
@@ -132,10 +127,11 @@ class UserServiceApplicationTests {
 
     @Test
     @Transactional
+    @Order(4)
     void testTbAccountDelete() {
-        tbBusinessCodeRepository.deleteById(4L);
+        tbBusinessCodeRepository.deleteByBusinessId(6L);
         Optional<TbBusinessCode> byId = tbBusinessCodeRepository.findById(6L);
-        Assertions.assertNull(byId.get(), "查询数据成功！");
+        Assertions.assertNull(byId.get(), "删除企业信息成功!");
     }
 
 }

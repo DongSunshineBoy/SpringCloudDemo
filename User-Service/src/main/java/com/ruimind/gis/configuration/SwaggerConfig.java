@@ -21,7 +21,7 @@ public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.orderservice.orderservice.controller")).paths(PathSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.ruimind.gis.controller")).paths(PathSelectors.any())
                 .build().globalOperationParameters(setHeaderToken());
 
     }

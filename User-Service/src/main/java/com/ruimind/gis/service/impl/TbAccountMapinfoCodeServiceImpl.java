@@ -1,9 +1,9 @@
 package com.ruimind.gis.service.impl;
 
-import com.ruimind.gis.dto.TbAccountMapinfoCodeDTO;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ruimind.gis.entity.TbAccountMapinfoCode;
 import com.ruimind.gis.mapper.TbAccountMapinfoCodeMapper;
 import com.ruimind.gis.service.TbAccountMapinfoCodeService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2023-04-06
  */
 @Service
-public class TbAccountMapinfoCodeServiceImpl extends ServiceImpl<TbAccountMapinfoCodeMapper, TbAccountMapinfoCodeDTO> implements TbAccountMapinfoCodeService {
+public class TbAccountMapinfoCodeServiceImpl extends ServiceImpl<TbAccountMapinfoCodeMapper, TbAccountMapinfoCode> implements TbAccountMapinfoCodeService {
 
 }

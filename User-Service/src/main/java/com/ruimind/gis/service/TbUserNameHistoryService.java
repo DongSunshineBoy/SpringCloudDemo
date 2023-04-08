@@ -1,7 +1,7 @@
 package com.ruimind.gis.service;
 
-import com.ruimind.gis.dto.TbUserNameHistoryDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ruimind.gis.entity.TbUserNameHistory;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author dongwentao
  * @since 2023-04-06
  */
-public interface TbUserNameHistoryService extends IService<TbUserNameHistoryDTO> {
+public interface TbUserNameHistoryService extends IService<TbUserNameHistory> {
 
 }

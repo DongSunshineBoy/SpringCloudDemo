@@ -1,4 +1,4 @@
-package com.generator.commonservice.advice;
+package com.ruimind.gis.advice;
 
 
 import com.alibaba.fastjson2.JSONObject;
@@ -10,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
@@ -22,14 +21,14 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  */
 
 @RestControllerAdvice
-public class GlobalResponseAdvice  implements ResponseBodyAdvice {
+public class GlobalResponseAdvice implements ResponseBodyAdvice {
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Override
     public boolean supports(MethodParameter returnType, Class converterType) {
-        return true;
+        return !returnType.getDeclaringClass().getName().contains("springfox");
     }
 
     @SneakyThrows
@@ -39,11 +38,6 @@ public class GlobalResponseAdvice  implements ResponseBodyAdvice {
         // 如果Controller直接返回String的话，SpringBoot是直接返回，故我们需要手动转换成json。
         if(body instanceof String){
             return objectMapper.writeValueAsString(GlobalResponseResult.success(body));
-        }
-
-        if (body instanceof ModelAndView) {
-            ModelAndView modelAndView = new ModelAndView();
-            return modelAndView.getModel();
         }
 
         if(body instanceof JSONObject){

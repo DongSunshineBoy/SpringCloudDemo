@@ -38,25 +38,28 @@ public class TbBusinessCode implements Serializable {
     private Long businessId;
 
 
-    @OneToMany(mappedBy = "tbBusinessCode", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+    //租户信息,单向关联
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "business_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private List<TbAccountCode> tbAccountCodeList;
 
 
-    @OneToMany(mappedBy = "tbBusinessCode", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private List<TbProjectCode> projectCodeList;
 
     /**
      * 企业名称
      */
     @Comment("企业名称")
+    @Column(length = 100, name = "business_name")
     private String businessName;
 
     /**
      * 企业英文简称
      */
     @Comment("企业英文简称")
+    @Column(length = 100, name = "business_name_abbr")
     private String businessNameAbbr;
 
     /**
@@ -88,6 +91,4 @@ public class TbBusinessCode implements Serializable {
      */
     @Comment("是否可用")
     private Integer businessDeleted;
-
-
 }

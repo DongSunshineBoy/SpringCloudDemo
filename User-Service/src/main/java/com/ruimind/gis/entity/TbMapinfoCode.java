@@ -9,12 +9,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -39,7 +37,12 @@ public class TbMapinfoCode implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("租户地图表编码id")
+    @Column(name = "mapinfo_id")
     private Integer mapinfoId;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mapinfo_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private List<TbAccountMapinfoCode> tbAccountMapinfoCodes;
 
     /**
      * 地图名称

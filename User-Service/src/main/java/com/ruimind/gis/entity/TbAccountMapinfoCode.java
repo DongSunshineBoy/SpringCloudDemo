@@ -7,10 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -39,22 +36,26 @@ public class TbAccountMapinfoCode implements Serializable {
     @TableId(value = "account_mapinfo_id", type = IdType.AUTO)
     private Long accountMapinfoId;
 
+
     /**
      * 租户编号
      */
     @Comment("租户编号")
+    @Column(name = "account_id")
     private Long accountId;
 
     /**
      * 菜单编号
      */
     @Comment("菜单编号")
+    @Column(name = "mapinfo_id")
     private Long mapinfoId;
 
     /**
      * 角色编号
      */
     @Comment("角色编号")
+    @Column(name = "role_id")
     private Long roleId;
 
     /**

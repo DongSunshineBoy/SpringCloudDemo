@@ -1,9 +1,9 @@
 package com.ruimind.gis.service.impl;
 
-import com.ruimind.gis.dto.TbLoginPasswordHistoryDTO;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ruimind.gis.entity.TbLoginPasswordHistory;
 import com.ruimind.gis.mapper.TbLoginPasswordHistoryMapper;
 import com.ruimind.gis.service.TbLoginPasswordHistoryService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2023-04-06
  */
 @Service
-public class TbLoginPasswordHistoryServiceImpl extends ServiceImpl<TbLoginPasswordHistoryMapper, TbLoginPasswordHistoryDTO> implements TbLoginPasswordHistoryService {
+public class TbLoginPasswordHistoryServiceImpl extends ServiceImpl<TbLoginPasswordHistoryMapper, TbLoginPasswordHistory> implements TbLoginPasswordHistoryService {
 
 }

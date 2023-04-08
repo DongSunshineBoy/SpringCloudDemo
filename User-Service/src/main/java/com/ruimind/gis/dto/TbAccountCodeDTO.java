@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -24,6 +25,30 @@ import java.util.Date;
 public class TbAccountCodeDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+
+    //租户权限,单向关联
+    @ApiModelProperty("企业租户权限信息")
+    private List<TbAccountPermissionCodeDTO> tbAccountPermissionCode;
+
+
+
+    //租户地图信息,单向关联
+    @ApiModelProperty("企业租户地图信息")
+    private List<TbAccountMapinfoCodeDTO> tbAccountMapinfoCodes;
+
+    //用户历史角色信息,单向关联
+    @ApiModelProperty("企业租户历史角色信息")
+    private List<TbUserAccountRoleHistoryDTO> tbUserAccountRoleHistories;
+
+
+    //租户用户角色, 单向关联
+    @ApiModelProperty("企业租户所属角色")
+    private List<TbUserAccountRoleCodeDTO> tbUserAccountRoleCodeDTO;
+
+
+    @ApiModelProperty("企业所属项目")
+    private TbProjectCodeDTO tbProjectCode;
 
 
     @ApiModelProperty("租户id")

@@ -8,12 +8,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -39,6 +37,42 @@ public class TbUserCode implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("角色id")
     private Long userId;
+
+    //用户租户角色历史信息，单向关联
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private List<TbUserNameHistory> tbUserNameHistories;
+
+    //用户登陆历史, 单向关联
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private List<TbLoginNameHistory> tbLoginNameHistories;
+
+    //用户登陆密码历史, 单向关联
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private List<TbLoginPasswordHistory> tbLoginPasswordHistories;
+
+    //用户删除信息历史, 单向关联
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private List<TbUserDeletedHistory> tbUserDeletedHistories;
+
+    //用户租户角色信息历史, 单向关联
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private List<TbUserAccountRoleHistory> tbUserAccountRoleHistories;
+
+    //用户租户角色信息, 单向关联
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private List<TbUserAccountRoleCode> tbUserAccountRoleCodes;
+
+    //用户租户设备信息，单向关联
+//    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+//            fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+//    private List<TbDeviceCode> tbDeviceCodes;
 
     /**
      * 用户姓名

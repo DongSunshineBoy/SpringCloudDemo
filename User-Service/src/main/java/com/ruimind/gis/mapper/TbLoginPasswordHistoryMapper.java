@@ -1,7 +1,7 @@
 package com.ruimind.gis.mapper;
 
-import com.ruimind.gis.dto.TbLoginPasswordHistoryDTO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ruimind.gis.entity.TbLoginPasswordHistory;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2023-04-06
  */
 @Mapper
-public interface TbLoginPasswordHistoryMapper extends BaseMapper<TbLoginPasswordHistoryDTO> {
+public interface TbLoginPasswordHistoryMapper extends BaseMapper<TbLoginPasswordHistory> {
 
 }

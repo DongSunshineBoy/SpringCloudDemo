@@ -1,9 +1,9 @@
 package com.ruimind.gis.service.impl;
 
-import com.ruimind.gis.dto.TbLogCodeDTO;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ruimind.gis.entity.TbLogCode;
 import com.ruimind.gis.mapper.TbLogCodeMapper;
 import com.ruimind.gis.service.TbLogCodeService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2023-04-06
  */
 @Service
-public class TbLogCodeServiceImpl extends ServiceImpl<TbLogCodeMapper, TbLogCodeDTO> implements TbLogCodeService {
+public class TbLogCodeServiceImpl extends ServiceImpl<TbLogCodeMapper, TbLogCode> implements TbLogCodeService {
 
 }

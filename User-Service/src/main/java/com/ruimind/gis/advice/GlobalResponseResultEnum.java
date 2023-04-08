@@ -1,4 +1,4 @@
-package com.generator.commonservice.advice;
+package com.ruimind.gis.advice;
 
 /**
  * @author dongwentao

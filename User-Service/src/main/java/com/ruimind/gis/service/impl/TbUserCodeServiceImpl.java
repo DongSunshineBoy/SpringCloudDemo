@@ -1,9 +1,9 @@
 package com.ruimind.gis.service.impl;
 
-import com.ruimind.gis.dto.TbUserCodeDTO;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ruimind.gis.entity.TbUserCode;
 import com.ruimind.gis.mapper.TbUserCodeMapper;
 import com.ruimind.gis.service.TbUserCodeService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2023-04-06
  */
 @Service
-public class TbUserCodeServiceImpl extends ServiceImpl<TbUserCodeMapper, TbUserCodeDTO> implements TbUserCodeService {
+public class TbUserCodeServiceImpl extends ServiceImpl<TbUserCodeMapper, TbUserCode> implements TbUserCodeService {
 
 }

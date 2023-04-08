@@ -9,12 +9,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -39,7 +37,14 @@ public class TbMenuCode implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("租户地图表编码id")
+    @Column(name = "menu_id")
     private Long menuId;
+
+
+    //租户权限,单向关联
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "menu_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private List<TbAccountPermissionCode> tbAccountPermissionCode;
 
     /**
      * 菜单名称
