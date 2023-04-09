@@ -27,6 +27,18 @@ class BusinessServiceImplTest {
     @Autowired
     private TbBusinessCodeRepository tbBusinessCodeRepository;
 
+
+    @Test
+    public void testLog() {
+        for (int i=0;i<1000;i++){
+
+                log.info("info==============="+i);
+                log.debug("debug==============="+i);
+                log.warn("warn==============="+i);
+                log.error("error==============="+i);
+        }
+    }
+
     @Test
     @Order(1)
     void testTbAccountInsert() {

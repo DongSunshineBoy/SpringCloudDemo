@@ -19,4 +19,4 @@ spring:
     web-application-type: reactive
 
 logging:
-  config: classpath:logback-dev.xml
+  config: classpath:logback-spring.xml

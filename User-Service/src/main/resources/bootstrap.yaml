@@ -19,5 +19,5 @@ spring:
       fail-on-empty-beans: false
 
 logging:
-  config: classpath:logback-dev.xml
+  config: classpath:logback-spring.xml
 

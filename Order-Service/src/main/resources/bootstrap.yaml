@@ -17,5 +17,5 @@ spring:
     active: ${app.active:pub}
 
 logging:
-  config: classpath:logback-dev.xml
+  config: classpath:logback-spring.xml
 
