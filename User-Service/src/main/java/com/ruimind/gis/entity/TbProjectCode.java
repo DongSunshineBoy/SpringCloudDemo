@@ -105,4 +105,10 @@ public class TbProjectCode implements Serializable {
     private Long projectCreateUserid;
 
 
+    /**
+     * 是否可用
+     */
+    @Comment("是否可用 可用1 不可用0")
+    private Byte isDeleted = 1;
+
 }

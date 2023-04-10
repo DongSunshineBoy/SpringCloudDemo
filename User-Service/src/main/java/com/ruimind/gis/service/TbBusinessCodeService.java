@@ -39,9 +39,24 @@ public interface TbBusinessCodeService extends IService<TbBusinessCode> {
     Page<TbBusinessCodeDTO> findAllBusinessByPage(PageParamQueryDTO pageRequest);
 
     /**
-     *  查询所有企业信息
+     *  根据具体字段查询对应的企业信息
      * @return
      */
-    Page<TbBusinessCodeDTO> findAllBusinessByPageQueryParams(TbBusinessQueryDTO pageRequest);
+    Page<TbBusinessCodeDTO> findBusinessByPageQuerySpecifyField(TbBusinessQueryDTO pageRequest);
+
+
+    /**
+     * 根据企业ID，删除企业信息， 修改逻辑的是否删除字段值
+     * @param bid
+     * @return
+     */
+    boolean deleteBusinessById(Long bid);
+
+    /**
+     * 根据企业ID,查询企业名称
+     * @param bid
+     * @return
+     */
+    String getBusinessNameById(Long bid);
 
 }

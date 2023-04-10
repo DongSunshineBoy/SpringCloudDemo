@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.Length;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel("企业查询信息实体")
+@ApiModel("企业分页查询信息实体")
 public class TbBusinessQueryDTO extends PageParamQueryDTO{
 
     /**

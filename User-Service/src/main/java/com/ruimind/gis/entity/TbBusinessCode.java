@@ -90,5 +90,5 @@ public class TbBusinessCode implements Serializable {
      * 是否可用
      */
     @Comment("是否可用")
-    private Integer businessDeleted;
+    private Byte businessDeleted = 1;
 }

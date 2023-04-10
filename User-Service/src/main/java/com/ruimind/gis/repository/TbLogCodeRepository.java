@@ -1,6 +1,7 @@
 package com.ruimind.gis.repository;
 
 import com.ruimind.gis.entity.TbLogCode;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -11,6 +12,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @author dongwentao
  * @since 2023-04-06
  */
-public interface TbLogCodeRepository extends PagingAndSortingRepository<TbLogCode, Long> {
+public interface TbLogCodeRepository extends PagingAndSortingRepository<TbLogCode, Long> , JpaSpecificationExecutor<TbLogCode> {
 
 }

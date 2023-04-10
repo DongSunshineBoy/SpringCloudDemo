@@ -104,7 +104,7 @@ public class TbMenuCode implements Serializable {
      * 是否可用
      */
     @Comment("是否可用")
-    private Integer menuDeleted;
+    private Integer menuDeleted = 1;
 
     /**
      * 创建时间
@@ -119,5 +119,10 @@ public class TbMenuCode implements Serializable {
     @Comment("创建用户编号")
     private Long createUserid;
 
+    /**
+     * 菜单子集结点, 默认不创建改属性
+     */
+    @Transient
+    private List<TbMenuCode> children;
 
 }

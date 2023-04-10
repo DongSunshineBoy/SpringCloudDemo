@@ -46,4 +46,6 @@ public class TbBusinessNameHistory implements Serializable {
     @Comment("结束时间")
     private Date endtime;
 
+    @Comment("是否删除")
+    private Byte isDeleted = 1;
 }

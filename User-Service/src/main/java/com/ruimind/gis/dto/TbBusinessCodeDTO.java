@@ -40,7 +40,7 @@ public class TbBusinessCodeDTO implements Serializable {
      * 更新时候需要id，否则不需要
      */
 
-    @ApiModelProperty(value = "企业编号ID")
+    @ApiModelProperty(value = "企业编号ID", hidden = true)
     private Long businessId;
 
     /**
@@ -88,5 +88,5 @@ public class TbBusinessCodeDTO implements Serializable {
      * 是否可用
      */
     @ApiModelProperty("是否可用")
-    private Integer businessDeleted;
+    private Byte businessDeleted = 1;
 }

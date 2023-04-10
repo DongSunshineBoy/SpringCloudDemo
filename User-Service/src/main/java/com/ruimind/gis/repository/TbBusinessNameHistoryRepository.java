@@ -1,9 +1,11 @@
 package com.ruimind.gis.repository;
 
 import com.ruimind.gis.entity.TbBusinessNameHistory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import java.util.Optional;
+import java.util.List;
 
 /**
  * <p>
@@ -15,6 +17,9 @@ import java.util.Optional;
  */
 public interface TbBusinessNameHistoryRepository extends PagingAndSortingRepository<TbBusinessNameHistory, Long> {
 
-    Optional<TbBusinessNameHistory> findByBusinessId(Long businessId);
+    List<TbBusinessNameHistory> findByBusinessId(Long businessId);
+
+
+    Page<TbBusinessNameHistory> findHistoryBusinessNameByBusinessId(Long businessIdm, Pageable pageable);
 
 }

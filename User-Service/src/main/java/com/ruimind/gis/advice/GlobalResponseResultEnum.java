@@ -25,7 +25,8 @@ public enum GlobalResponseResultEnum {
     USER_UNKNOW_TOKEN_LOGIN(401, "用户暂无token请求, 请检查登录信息!"),
 
     //运行时异常信息
-    NPE_EXCEPTION(500, "空指针异常!");
+    NPE_EXCEPTION(500, "空指针异常!"),
+    NOT_NULL_ID_WHEN_UPDATE(500, "修改对应实体时候ID属性不能够为空!");
 
 
     //返回编码值

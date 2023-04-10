@@ -1,4 +1,4 @@
-package com.ruimind.gis.dto;
+package com.ruimind.gis.dto.query;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -21,8 +20,8 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel("日志实体信息")
-public class TbLogCodeDTO implements Serializable {
+@ApiModel("日志分页实体信息")
+public class TbLogCodeQueryDTO extends PageParamQueryDTO {
 
     private static final long serialVersionUID = 1L;
 
@@ -70,6 +69,4 @@ public class TbLogCodeDTO implements Serializable {
      */
     @ApiModelProperty("操作用户编号")
     private Long logOperateUserid;
-
-
 }

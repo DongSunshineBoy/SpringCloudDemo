@@ -1,6 +1,8 @@
 package com.ruimind.gis.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ruimind.gis.advice.GlobalResponseResultEnum;
+import com.ruimind.gis.advice.GlobalRunTimeException;
 import com.ruimind.gis.dto.TbBusinessCodeDTO;
 import com.ruimind.gis.dto.query.PageParamQueryDTO;
 import com.ruimind.gis.dto.query.TbBusinessQueryDTO;
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.Predicate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * <p>
@@ -38,10 +41,11 @@ import java.util.*;
 public class TbBusinessCodeServiceImpl extends
         ServiceImpl<TbBusinessCodeMapper, TbBusinessCode> implements TbBusinessCodeService {
 
-    TbBusinessCodeMapper tbBusinessCodeMapper;
-    TbBusinessCodeRepository tbBusinessCodeRepository;
-    TbBusinessNameHistoryService tbBusinessNameHistoryService;
-    TbBusinessNameHistoryRepository tbBusinessNameHistoryRepository;
+    private final TbBusinessCodeMapper tbBusinessCodeMapper;
+    private final TbBusinessCodeRepository tbBusinessCodeRepository;
+    private final TbBusinessNameHistoryService tbBusinessNameHistoryService;
+    private final TbBusinessNameHistoryRepository tbBusinessNameHistoryRepository;
+    private final static ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
     public TbBusinessCodeServiceImpl(TbBusinessCodeMapper tbBusinessCodeMapper,
@@ -54,7 +58,6 @@ public class TbBusinessCodeServiceImpl extends
         this.tbBusinessNameHistoryRepository = tbBusinessNameHistoryRepository;
     }
 
-    private ModelMapper modelMapper = new ModelMapper();
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -79,32 +82,65 @@ public class TbBusinessCodeServiceImpl extends
     }
 
 
+    public void updateBusinessHistoryName(TbBusinessNameHistory businessNameHistory, TbBusinessCode tbBusinessCode) {
+        if (Objects.isNull(businessNameHistory) || Objects.isNull(tbBusinessCode)) {
+            return;
+        }
+
+        Long businessId = tbBusinessCode.getBusinessId();
+
+        //修改旧的记录的结束时间
+        businessNameHistory.setEndtime(new Date());
+        TbBusinessNameHistory updateOldHistoryInfo = tbBusinessNameHistoryRepository.save(businessNameHistory);
+        Long updateId = updateOldHistoryInfo.getBusinessId();
+
+        if (updateId.equals(businessNameHistory.getBusinessId())) {
+            log.debug("save {} history business information successfully and update end time", updateOldHistoryInfo);
+        }
+
+        //保存新的企业历史记录信息
+        TbBusinessNameHistory tbBusinessNameHistory = new TbBusinessNameHistory();
+        tbBusinessNameHistory
+                .setBusinessId(businessId)
+                .setBusinessName(tbBusinessCode.getBusinessName())
+                .setStarttime(new Date());
+
+        Long historyBsId = tbBusinessNameHistoryRepository.save(tbBusinessNameHistory).getBusinessId();
+
+        //判断是否保存成功
+        if (businessId.equals(historyBsId)) {
+            log.debug("save {} history info successfully", tbBusinessNameHistory);
+        }
+    }
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateBusiness(TbBusinessCodeDTO tbBusinessCodeDTO) {
 
         TbBusinessCode tbBusinessCode = modelMapper.map(tbBusinessCodeDTO, TbBusinessCode.class);
 
+        String businessName = tbBusinessCode.getBusinessName();
         Long businessId = tbBusinessCode.getBusinessId();
 
-        Optional<TbBusinessNameHistory> historyRepositoryByBusiness = tbBusinessNameHistoryRepository.findByBusinessId(businessId);
+        if (businessId == null)
+            throw new GlobalRunTimeException(GlobalResponseResultEnum.NOT_NULL_ID_WHEN_UPDATE.getMessage(),
+                GlobalResponseResultEnum.NOT_NULL_ID_WHEN_UPDATE.getCode());
 
-        Long historyBusinessId = historyRepositoryByBusiness.map(TbBusinessNameHistory::getBusinessId).orElseGet(() -> 0L);
+        List<TbBusinessNameHistory> historyRepositoryByBusiness = tbBusinessNameHistoryRepository.findByBusinessId(businessId);
 
-        //如果修改后的企业名称与历史企业名称不相同
-        if (!historyBusinessId.equals(businessId) && historyRepositoryByBusiness.isPresent()
-                && historyRepositoryByBusiness.get().getEndtime() == null) {
+        if (historyRepositoryByBusiness != null && historyRepositoryByBusiness.size() > 0) {
 
-            //修改旧的记录的结束时间
-            TbBusinessNameHistory businessNameHistory = historyRepositoryByBusiness.get();
-            businessNameHistory.setEndtime(new Date());
-            TbBusinessNameHistory updateOldHistoryInfo = tbBusinessNameHistoryRepository.save(businessNameHistory);
-            Long updateId = updateOldHistoryInfo.getBusinessId();
-
-            if (updateId.equals(businessNameHistory.getBusinessId())) {
-                log.debug("save {} history business information successfully and update end time", updateOldHistoryInfo);
-            }
-
+            historyRepositoryByBusiness.stream()
+                    .filter(Objects::nonNull)
+                    .forEach((businessNameHistory)->{
+                        String historyBusinessName = businessNameHistory.getBusinessName();
+                        Date endtime = businessNameHistory.getEndtime();
+                        if (!businessName.equals(historyBusinessName) && endtime == null) {
+                            //如果已经存在历史名称, 则更新旧的历史名称结束时间, 添加新的历史名称记录
+                            this.updateBusinessHistoryName(businessNameHistory, tbBusinessCode);
+                        }
+                    });
+        }else {
             //保存新的企业历史记录信息
             TbBusinessNameHistory tbBusinessNameHistory = new TbBusinessNameHistory();
             tbBusinessNameHistory
@@ -113,10 +149,8 @@ public class TbBusinessCodeServiceImpl extends
                     .setStarttime(new Date());
 
             Long historyBsId = tbBusinessNameHistoryRepository.save(tbBusinessNameHistory).getBusinessId();
-
-            //判断是否保存成功
-            if (businessId.equals(historyBsId)) {
-                log.debug("save {} history info successfully", tbBusinessNameHistory);
+            if (historyBsId.equals(businessId)) {
+                log.debug("save {} history business information successfully and update end time", tbBusinessNameHistory);
             }
         }
 
@@ -133,6 +167,7 @@ public class TbBusinessCodeServiceImpl extends
         String sort = pageRequest.getSortProperties();
         Sort sorted = Sort.by(direction, sort);
         PageRequest request = PageRequest.of(page, size, sorted);
+
         Page<TbBusinessCode> tbBusinessCodes = tbBusinessCodeRepository.findAll(request);
         Page<TbBusinessCodeDTO> tbBusinessCodeDTOPage = modelMapper.map(tbBusinessCodes, Page.class);
         return tbBusinessCodeDTOPage;
@@ -140,7 +175,7 @@ public class TbBusinessCodeServiceImpl extends
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Page<TbBusinessCodeDTO> findAllBusinessByPageQueryParams(TbBusinessQueryDTO pageRequest) {
+    public Page<TbBusinessCodeDTO> findBusinessByPageQuerySpecifyField(TbBusinessQueryDTO pageRequest) {
 
         String businessArea = pageRequest.getBusinessArea();
         Integer businessDeleted = pageRequest.getBusinessDeleted();
@@ -160,7 +195,7 @@ public class TbBusinessCodeServiceImpl extends
             List<Predicate> predicateList = new ArrayList<>();
 
             if (StringUtils.isNotBlank(businessArea)) {
-                Predicate businessArea1 = criteriaBuilder.equal(root.get("businessArea").as(String.class), businessArea);
+                Predicate businessArea1 = criteriaBuilder.like(root.get("businessArea").as(String.class), businessArea);
                 predicateList.add(businessArea1);
             }
 
@@ -196,7 +231,7 @@ public class TbBusinessCodeServiceImpl extends
 
             Predicate[] predicates = new Predicate[predicateList.size()];
             Predicate[] predicateListArray = predicateList.toArray(predicates);
-            return criteriaBuilder.or(predicateListArray);
+            return criteriaBuilder.and(predicateListArray);
         };
 
         Sort orders = Sort.by(direction, sortProperties);
@@ -204,6 +239,37 @@ public class TbBusinessCodeServiceImpl extends
 
         Page<TbBusinessCode> tbBusinessCodes = tbBusinessCodeRepository.findAll(example, request);
         return modelMapper.map(tbBusinessCodes, Page.class);
+    }
+
+    @Override
+    public boolean deleteBusinessById(Long bid) {
+
+        Optional<TbBusinessCode> businessCode = tbBusinessCodeRepository.findByBusinessId(bid);
+
+        AtomicBoolean isDeleted = new AtomicBoolean(false);
+
+        businessCode.ifPresent(tbBusinessCode -> {
+            tbBusinessCode.setBusinessDeleted((byte)0);
+            isDeleted.set(tbBusinessCodeRepository.save(tbBusinessCode).getBusinessDeleted() != 1);
+        });
+
+        boolean isDel = tbBusinessNameHistoryService.deleteBusinessHistoryNameById(bid);
+
+        boolean isAllDeleted = isDeleted.get() && isDel;
+
+        if (!isAllDeleted) {
+            log.debug("fail to delete business history or business information value is {} ", false);
+        }
+
+        return isAllDeleted;
+    }
+
+    @Override
+    public String getBusinessNameById(Long bid) {
+       return tbBusinessCodeRepository.
+                findByBusinessId(bid)
+                .map(TbBusinessCode::getBusinessName)
+                .orElseGet(String::new);
     }
 
 }

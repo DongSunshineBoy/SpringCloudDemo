@@ -1,4 +1,4 @@
-package com.ruimind.gis.dto;
+package com.ruimind.gis.dto.query;
 
 import com.ruimind.gis.configuration.Comment;
 import io.swagger.annotations.ApiModel;
@@ -8,7 +8,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -22,15 +21,15 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel("项目实体dto")
-public class TbProjectCodeDTO implements Serializable {
+@ApiModel("项目分页实体")
+public class TbProjectCodeQueryDTO extends PageParamQueryDTO {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 项目编号
      */
-    @ApiModelProperty(value = "项目编码id", hidden = true)
+    @ApiModelProperty("项目编码id")
     private Long projectId;
 
     /**
@@ -83,13 +82,5 @@ public class TbProjectCodeDTO implements Serializable {
      */
     @ApiModelProperty("创建用户编号")
     private Long projectCreateUserid;
-
-
-    /**
-     * 是否可用
-     */
-    @ApiModelProperty("是否可用 可用1 不可用0")
-    private Byte isDeleted = 1;
-
 
 }

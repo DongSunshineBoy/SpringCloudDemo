@@ -99,8 +99,15 @@ public class GlobalAdviceHandler {
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public GlobalResponseResult<Object> RuntimeException(RuntimeException ex){
+    public GlobalResponseResult<Object> runtimeException(RuntimeException ex){
         log.error(ex.getMessage(),ex);
         return  GlobalResponseResult.fail(GlobalResponseResultEnum.RC500.getCode(), ex.getMessage());
+    }
+
+
+    @ExceptionHandler(GlobalRunTimeException.class)
+    public GlobalResponseResult<Object> globalRunTimeException(GlobalRunTimeException ex){
+        log.error(ex.getMessage(),ex);
+        return  GlobalResponseResult.fail(ex.getCode(), ex.getMessage());
     }
 }

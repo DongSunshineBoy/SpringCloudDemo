@@ -30,5 +30,4 @@ public interface TbBusinessCodeRepository extends PagingAndSortingRepository<TbB
      */
     void deleteByBusinessId(Long businessId);
 
-
 }
